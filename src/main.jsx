@@ -5,7 +5,6 @@ import './index.css'
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AdminHomePage from './pages/AdminHomePage.jsx'
 import Posts from './pages/Posts.jsx'
-import Users from './pages/Users.jsx'
 import Login from './pages/Login.jsx';
 import About from './pages/About.jsx'
 

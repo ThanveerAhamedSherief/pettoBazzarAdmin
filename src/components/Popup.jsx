@@ -35,17 +35,7 @@ const PopUp = ({ openPopUp, closePopUp, selectedItem, onSave }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("==>",Adoption)
-    console.log("==>",breedName)
-    console.log("==>",city)
-    console.log("==>",Description)
-    console.log("==>",petColor)
-    console.log("==>",petDob)
-    console.log("==>",petGender)
-    console.log("==>",petType)
-    console.log("==>",price)
-    console.log("==>",weight)
-    console.log("==>",whatsAppNumber)
+
     let payLoad = {
       petName,
       Adoption,
@@ -60,7 +50,7 @@ const PopUp = ({ openPopUp, closePopUp, selectedItem, onSave }) => {
       weight,
       whatsAppNumber
     }
-    let updatePost = await fetch(`https://petshop-m0x2.onrender.com/api/v1/admin/${selectedItem._id}/updatePost`,{
+    let updatePost = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/admin/${selectedItem._id}/updatePost`,{
       method: 'PUT',
       headers: {
         "content-type": "application/json",

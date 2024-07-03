@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import logo from '../../public/logo.png'
+import logo from '../assets/logo.png';
 
 const Login = () => {
   const [email, setMail] = useState("");
@@ -18,7 +18,7 @@ const Login = () => {
       email,
       password
     }
-   let loginResponse = await fetch('https://petshop-m0x2.onrender.com/api/v1/admin/login',{
+   let loginResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/admin/login`,{
       method: "POST",
       headers: {
         "content-type": "application/json",

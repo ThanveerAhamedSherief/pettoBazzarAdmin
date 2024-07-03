@@ -1,6 +1,5 @@
 // src/About.js
 import React from 'react';
-import logo from '../../public/logo.png'
 
 
 const About = () => {

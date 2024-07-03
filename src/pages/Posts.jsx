@@ -45,7 +45,7 @@ const handleNext = () => {
   });
   const fetchUsers = async () => {
     let users = await fetch(
-      "https://petshop-m0x2.onrender.com/api/v1/admin/requestedPosts",
+      `${import.meta.env.VITE_API_BASE_URL}/api/v1/admin/requestedPosts`,
       {
         method: "GET",
       }
@@ -164,7 +164,7 @@ const handleNext = () => {
       let payload = {
         status: "Approved",
       };
-      let url = `https://petshop-m0x2.onrender.com/api/v1/admin/${itemid}/updatePostStatus`;
+      let url = `${import.meta.env.VITE_API_BASE_URL}/api/v1/admin/${itemid}/updatePostStatus`;
       let approveStatus = await fetch(url, {
         method: "PUT",
         headers: {
@@ -212,7 +212,7 @@ const handleNext = () => {
       let payload = {
         status: "Rejected",
       };
-      let url = `https://petshop-m0x2.onrender.com/api/v1/admin/${itemid}/updatePostStatus`;
+      let url = `${import.meta.env.VITE_API_BASE_URL}/api/v1/admin/${itemid}/updatePostStatus`;
       let approveStatus = await fetch(url, {
         method: "PUT",
         headers: {
@@ -253,32 +253,8 @@ const handleNext = () => {
         <h1 className="font-bold text-center text-2xl m-4">
           Posts to be Approved or Reject
         </h1>
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6">
-        {allPosts.map((item, index) => (
-          <div key={index}>
-            <div  className="relative">
-              <img
-                src={item.petImages[0]}
-                alt={item.breedName}
-                className=""
-              />
-              <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2">
-                {item.breedName}
-              </div>
-              <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white p-2 cursor-pointer" onClick={()=> setEdit(true)}>
-                <MdEditSquare/>
-              </div>
-            </div>
-            <p>{item.Description}</p>
-            <div className="flex justify-between">
-                <button className="bg-green-600 w-1/2 px-6 py-3 m-4 duration-200  text-white hover:scale-105 " data-value={item._id} onClick={handleApprovedStatus}>Approve</button>
-                <button className="w-1/2 px-6 py-3 m-4 duration-200  text-white hover:scale-105 bg-red-500" data-value={item._id} onClick={handleRejectedStatus}>Reject</button>
-                </div>
-          </div>
-        ))}
-      </div> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-6">
-            {allPosts.map((item) => (
+            {allPosts.length > 0 ? allPosts.map((item) => (
               <div key={item._id}>
                 <div className="relative ">
                  
@@ -322,7 +298,9 @@ const handleNext = () => {
                   </button>
                 </div>
               </div>
-            ))}
+            )) : (
+              <div className="text-bold text-3xl items-center"> No Posts found</div>
+            )}
           </div>
       </div>}
      { openView &&<div className="max-w-2xl mx-auto my-10 p-6 rounded-lg shadow-md ">
@@ -364,175 +342,10 @@ const handleNext = () => {
             <ReadOnlyField label ="Price" value={viewItem.price}/>
             <ReadOnlyField label ="Weight" value={viewItem.weight}/>
             <ReadOnlyField label ="WhatsAppNumber" value={viewItem.whatsAppNumber}/>
-                    {/* <ul className="list-disc list-inside mt-4">
-                    <li>Adoption: {viewItem.Adoption}</li>
-                    <li>City: {viewItem.city}</li>
-                    <li>PetColor: {viewItem.petColor}</li>
-                    <li>petDob: {viewItem.petDob}</li>
-                    <li>Feature 5: Sed cursus ante dapibus diam.</li>
-                    <li>Feature 6: Sed nisi.</li>
-                    <li>Feature 7: Nulla quis sem at nibh elementum imperdiet.</li>
-                    <li>Feature 8: Duis sagittis ipsum.</li>
-                    <li>Feature 9: Praesent mauris.</li>
-                    <li>Feature 10: Fusce nec tellus sed augue semper porta.</li>
-                </ul>
-                <div className="mt-4">
-                    <span className="text-gray-800 text-xl font-bold">$99.99</span>
-                </div> */}
-                {/* <div className="flex justify-between">
-                  <button
-                    className="bg-green-600 w-1/2 px-6 py-3 m-4 duration-200  text-white hover:scale-105 "
-                    data-value={viewItem._id}
-                    onClick={handleApprovedStatus}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className="w-1/2 px-6 py-3 m-4 duration-200  text-white hover:scale-105 bg-red-500"
-                    data-value={viewItem._id}
-                    onClick={handleRejectedStatus}
-                  >
-                    Reject
-                  </button>
-                </div> */}
-                {/* <button 
-                    className="mt-6 w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
-                >
-                    Add to Cart
-                </button> */}
             </div>
         </div>}
-      {/* <div className="max-w-2xl mx-auto my-10 p-6 bg-white rounded-lg shadow-md">
-            <div className="relative">
-                <img 
-                    className="w-full h-64 object-cover rounded-t-lg" 
-                    src={images[currentImageIndex]} 
-                    alt="Product"
-                />
-                <button 
-                    onClick={handlePrevious} 
-                    className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 focus:outline-none"
-                >
-                    &lt;
-                </button>
-                <button 
-                    onClick={handleNext} 
-                    className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 focus:outline-none"
-                >
-                    &gt;
-                </button>
-            </div>
-            <div className="p-6">
-                <h2 className="text-2xl font-semibold text-gray-800">Product Name</h2>
-                <p className="text-gray-600 mt-4">This is a great product that you will love. It has many amazing features and benefits that make it a must-have item.</p>
-                <div className="mt-4">
-                    <span className="text-gray-800 text-xl font-bold">$99.99</span>
-                </div>
-                <button 
-                    className="mt-6 w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:bg-blue-500"
-                >
-                    Add to Cart
-                </button>
-            </div>
-        </div> */}
       <PopUp openPopUp={openPopup} closePopUp={HandleRemovePopUp} selectedItem={selectedItem} onSave={handleUpdatedPost} />
-      {/* <ViewPopup openPopUp={openPopup1} closePopUp={HandleRemovePopUp} selectedItem={selectedItem}/> */}
     </div>
-
-    //         <>
-    //         <div
-    //           name=''
-    //           className='bg-gradient-to-b from-black to-gray-800 w-full text-white md:h-screen text-center md:text-left'
-    //         >
-    //           <div className='max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full'>
-    //             <div className='pb-8'>
-    //               <p className='text-4xl font-bold inline border-b-4 border-gray-500'>
-    //   Title            </p>
-    //               <p className='py-6'>subtitle</p>
-    //             </div>
-
-    //             <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-8 sm:px-5'>
-    //               {allPosts.map(({ _id, breedName, Description , petImages}) => (
-    //                 <div
-    //                   key={_id}
-    //                   className='shadow-md shadow-gray-600 rounded-lg overflow-hidden'
-    //                 >
-    //                   <img
-    //                     src={petImages[0]}
-    //                     alt=''
-    //                     className='rounded-md duration-200 hover:scale-105'
-    //                   />
-    //                   <h4>{breedName}</h4>
-    //                   <p>{Description}</p>
-    //                   <div className='flex items-center justify-center'>
-    //                     <button
-    //                       className='w-1/2 px-6 py-3 m-4 duration-200 hover:scale-105 bg-green-700'
-
-    //                     >
-    //                       Approve
-    //                     </button>
-    //                     <button
-    //                       className='w-1/2 px-6 py-3 m-4 duration-200 hover:scale-105 bg-red-600'
-
-    //                     >
-    //                       Reject
-    //                     </button>
-    //                   </div>
-    //                 </div>
-    //               ))}
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </>
-    // <div className="bg-white pb-4">
-    //   <table className="w-full userTable">
-    //     <thead>
-    //       <tr>
-    //         <th>No</th>
-    //         <th>Name</th>
-    //         <th>Email</th>
-    //         <th>Role</th>
-    //         <th>Created At</th>
-    //         <th>Action</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {allPosts.map((el, i) => {
-    //         return (
-    //           <tr key={i}>
-    //             <td>{i + 1}</td>q
-    //             <td>{el.petName}</td>
-    //             <td>{el.breedName}</td>
-    //             <td>{el.Description}</td>
-    //             <td>{moment(el.petDob).format("ll")}</td>
-    //             <td>
-    //               <button
-    //                 className="bg-green-100 p-2 rounded-full cursor-pointer hover:bg-green-500 hover:text-white"
-    //                 onClick={() => {
-    //                   setUpdateUserDetails(el);
-    //                   setOpenUpdateRole(true);
-    //                 }}
-    //               >
-    //                 <MdModeEdit />
-    //               </button>
-    //             </td>
-    //           </tr>
-    //         );
-    //       })}
-    //     </tbody>
-    //   </table>
-    //   {/* {
-    //     openUpdateRole && <ChangeUserRole
-    //     onClose={()=>setOpenUpdateRole(false)}
-    //                 name={updateUserDetails.name}
-    //                 email={updateUserDetails.email}
-    //                 role={updateUserDetails.role}
-    //                 userId={updateUserDetails._id}
-    //                 callFunc={fetchUsers}
-    //     />
-
-    //   } */}
-    // </div>
   );
 };
 
