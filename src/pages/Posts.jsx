@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import moment from "moment";
-import { MdModeEdit } from "react-icons/md";
 import { MdEditSquare } from "react-icons/md";
-import { Carousel, IconButton } from "@material-tailwind/react";
 import PopUp from "../components/Popup";
 import noImage from '../assets/no-image.png'
-import ViewPopup from "../components/ViewPopup";
 import { IoMdCloseCircle } from "react-icons/io";
 import ReadOnlyField from "../components/ReadOnlyField";
 const Posts = () => {
   const [allPosts, setPosts] = useState([]);
-  const [openUpdateRole, setOpenUpdateRole] = useState(false);
-  const [edit, setEdit] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
-  const [openPopup1, setOpenPopup1] = useState(false);
 
   const [selectedItem, setSelectedItem] = useState({})
   const images = [
@@ -55,106 +48,11 @@ const handleNext = () => {
     if (dataResponse.Data.length > 0) {
       setPosts(dataResponse.Data);
     }
-    //   if (dataResponse.error) {
-    //     toast(dataResponse.message);
-    //   }
-    console.log("dataresponse=->", allPosts);
+
   };
-
-  //   const ITEMS_PER_PAGE = 10;
-
-  //   const [currentPage, setCurrentPage] = useState(1);
-
-  //   const handleClick = (page) => {
-  //     setCurrentPage(page);
-  //   };
-  // const images = [
-  //   {
-  //     _id: 1,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 2,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 3,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 4,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 5,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 6,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 7,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 8,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 9,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 10,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 11,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 12,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 13,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 14,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  //   {
-  //     _id: 15,
-  //     src: "https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  //     link: "link here",
-  //   },
-  // ];
-  //   const currentItems = images.slice(
-  //     (currentPage - 1) * ITEMS_PER_PAGE,
-  //     currentPage * ITEMS_PER_PAGE
-  //   );
-
-  //   const totalPages = Math.ceil(images.length / ITEMS_PER_PAGE);
 
   useEffect(() => {
     fetchUsers();
-    console.log("------->")
   }, []);
 
   const handleApprovedStatus = async (e) => {

@@ -6,10 +6,6 @@ const About = () => {
   return (
     <div className="bg-white p-8 md:p-16 lg:p-24">
       <div className="container mx-auto flex items-center">
-      {/* <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-indigo-700"> */}
-          {/* <img className="w-80 h-80 " src={logo} alt="logo"/> */}
-          {/* PetoBazaar     */}
-      {/* </a> */}
       <div>
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-8">
           About Us
