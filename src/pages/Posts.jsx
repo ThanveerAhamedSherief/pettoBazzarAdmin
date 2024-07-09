@@ -57,12 +57,13 @@ const handleNext = () => {
 
   const handleApprovedStatus = async (e) => {
     try {
-      console.log("item ==>", e.target.dataset.value);
-      let itemid = e.target.dataset.value;
+      let {id, ownerid} = e.currentTarget.dataset;
+      console.log("item", id, ownerid);
       let payload = {
         status: "Approved",
+        ownerId: ownerid
       };
-      let url = `${import.meta.env.VITE_API_BASE_URL}/api/v1/admin/${itemid}/updatePostStatus`;
+      let url = `${import.meta.env.VITE_API_BASE_URL}/api/v1/admin/${id}/updatePostStatus`;
       let approveStatus = await fetch(url, {
         method: "PUT",
         headers: {
@@ -74,8 +75,7 @@ const handleNext = () => {
       if (approveStatus.status === (200 || 201)) {
         toast.success("Post Approved");
         // allPosts.filter(item => toString(item._id) != itemid);
-        let updatePosts = allPosts.filter((item) => item._id != itemid);
-        console.log("all==>", updatePosts);
+        let updatePosts = allPosts.filter((item) => item._id != id);
 
         setPosts(updatePosts);
         setViewItem(false);
@@ -105,12 +105,14 @@ const handleNext = () => {
   }
   const handleRejectedStatus = async (e) => {
     try {
-      console.log("item ==>", e.target.dataset.value);
-      let itemid = e.target.dataset.value;
+      console.log("item -dataset==>", e.currentTarget.dataset);
+      let {id, ownerid} = e.currentTarget.dataset;
+      console.log("item", id, ownerid);
       let payload = {
         status: "Rejected",
+        ownerId: ownerid
       };
-      let url = `${import.meta.env.VITE_API_BASE_URL}/api/v1/admin/${itemid}/updatePostStatus`;
+      let url = `${import.meta.env.VITE_API_BASE_URL}/api/v1/admin/${id}/updatePostStatus`;
       let approveStatus = await fetch(url, {
         method: "PUT",
         headers: {
@@ -120,7 +122,7 @@ const handleNext = () => {
       });
       if (approveStatus.status === (200 || 201)) {
         toast.error("Post Rejected");
-        let updatePosts = allPosts.filter((item) => item._id != itemid);
+        let updatePosts = allPosts.filter((item) => item._id != id);
 
         setPosts(updatePosts);  
         setViewItem(false);
@@ -182,14 +184,16 @@ const handleNext = () => {
                 <div className="flex justify-between">
                   <button
                     className="bg-green-600 w-1/2 px-6 py-3 m-4 duration-200  text-white hover:scale-105 "
-                    data-value={item._id}
+                    data-id={item._id}
+                    data-ownerid = {item.ownerId}
                     onClick={handleApprovedStatus}
                   >
                     Approve
                   </button>
                   <button
                     className="w-1/2 px-6 py-3 m-4 duration-200  text-white hover:scale-105 bg-red-500"
-                    data-value={item._id}
+                    data-id={item._id}
+                    data-ownerid = {item.ownerId}
                     onClick={handleRejectedStatus}
                   >
                     Reject
