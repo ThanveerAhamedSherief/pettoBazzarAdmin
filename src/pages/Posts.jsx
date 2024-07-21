@@ -91,12 +91,6 @@ const handleNext = () => {
     setSelectedItem(item);
     setOpenPopup(true)
   }
-  const openDialog1 = (item) =>{
-    // let item = e.target.dataset.value;
-    console.log("item==>", item)
-    setSelectedItem(item);
-    setOpenPopup1(true)
-  }
   const newFormat = () => {
     console.log("0000000=>", viewItem.petDob)
     let date = new Date(viewItem.petDob);
@@ -157,7 +151,6 @@ const handleNext = () => {
             {allPosts.length > 0 ? allPosts.map((item) => (
               <div key={item._id}>
                 <div className="relative ">
-                 
                   <div className="cursor-pointer h-40 w-full" onClick={() => handleViewPopup(item)} >
                  {item.petImages.length > 0 ? <img
                     src={item.petImages[0]}
@@ -170,7 +163,7 @@ const handleNext = () => {
                   />}
                   </div>
                   <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2">
-                    {item.breedName}
+                    {item?.ownerName ? item.ownerName : item.petName}
                   </div>
                   <div
                     className="absolute bottom-0 right-0 bg-black bg-opacity-50 text-white p-2 cursor-pointer"
@@ -235,6 +228,7 @@ const handleNext = () => {
                 </p>
                 
             <ReadOnlyField label ="Adoption" value={viewItem.Adoption}/>
+            <ReadOnlyField label ="BreedName" value={viewItem.breedName}/>
             <ReadOnlyField label ="City" value={viewItem.city}/>
             <ReadOnlyField label ="PetColor" value={viewItem.petColor}/>
             <ReadOnlyField label ="PetDob" value={newFormat}/>
