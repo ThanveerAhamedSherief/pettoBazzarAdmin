@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { IoMdCloseCircle } from "react-icons/io";
 import { toast } from "react-toastify";
+import moment from 'moment';
 
 const PopUp = ({ openPopUp, closePopUp, selectedItem, onSave }) => {
   const handlelosePopUp = (e) => {
@@ -9,13 +10,11 @@ const PopUp = ({ openPopUp, closePopUp, selectedItem, onSave }) => {
       closePopUp();
     }
   };
-  const formatDate = (isoDate) => {
-    // const date = new Date(isoDate);
-    // const year = date.getFullYear();
-    // const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-    // const day = String(date.getDate()).padStart(2, '0');
-    return isoDate.split('T')[0];
-  };
+  function formatDate(longValue) {
+    // Assuming longValue is in milliseconds (if it's in seconds, multiply by 1000)
+    const date = moment(longValue); // moment(longValue * 1000) if it's in seconds
+    return date.format('YYYY-MM-DD'); // Customize the format as needed
+  }
   console.log("popupItem=>", selectedItem)
   if (openPopUp !== true) return null;
    let [Adoption, setAdoption] = useState(selectedItem.Adoption);
@@ -70,7 +69,11 @@ const PopUp = ({ openPopUp, closePopUp, selectedItem, onSave }) => {
   }
   const setDate = (e) => {
     console.log('date', e.target.value)
-    setPetDob(e.target.value);
+    const selectedDate = new Date(e.target.value); // Assuming date comes from an input field
+    // setPetDob(selectedDate);
+    const timestamp = selectedDate.getTime();
+    setPetDob(timestamp);
+    // setPetDob(e.target.value);
   }
 
   return (
@@ -190,7 +193,7 @@ const PopUp = ({ openPopUp, closePopUp, selectedItem, onSave }) => {
                   name="petDob"
                   id="petDob"
                   onChange={setDate}
-                  value={petDob}
+                  value={formatDate(petDob)}
                   placeholder="petDob"
                   className={`block w-full bg-transparent outline-none border-b-2 py-2 px-4  placeholder-indigo-700 ${"text-indigo-700 border-indigo-700"}`}
                   // ref={register}
