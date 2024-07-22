@@ -5,6 +5,7 @@ import PopUp from "../components/Popup";
 import noImage from '../assets/no-image.png'
 import { IoMdCloseCircle } from "react-icons/io";
 import ReadOnlyField from "../components/ReadOnlyField";
+import moment from 'moment';
 const Posts = () => {
   const [allPosts, setPosts] = useState([]);
   const [openPopup, setOpenPopup] = useState(false);
@@ -15,7 +16,11 @@ const Posts = () => {
     "https://via.placeholder.com/400x300?text=Image+2",
     "https://via.placeholder.com/400x300?text=Image+3"
 ];
-
+function formatDate(longValue) {
+  // Assuming longValue is in milliseconds (if it's in seconds, multiply by 1000)
+  const date = moment(longValue); // moment(longValue * 1000) if it's in seconds
+  return date.format('YYYY-MM-DD'); // Customize the format as needed
+}
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
 const [openView, setOpenView] = useState(false);
 const [viewItem, setViewItem] = useState({});
@@ -231,7 +236,7 @@ const handleNext = () => {
             <ReadOnlyField label ="BreedName" value={viewItem.breedName}/>
             <ReadOnlyField label ="City" value={viewItem.city}/>
             <ReadOnlyField label ="PetColor" value={viewItem.petColor}/>
-            <ReadOnlyField label ="PetDob" value={newFormat}/>
+            <ReadOnlyField label ="PetDob" value={formatDate(viewItem.petDob)}/>
             <ReadOnlyField label ="PetGender" value={viewItem.petGender}/>
             <ReadOnlyField label ="PetName" value={viewItem.petName}/>
             <ReadOnlyField label ="PetType" value={viewItem.petType}/>
